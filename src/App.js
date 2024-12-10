@@ -92,7 +92,7 @@ const CommandLinePortfolio = () => {
         }
 
         // Default for unknown commands
-        return [`UNKNOWN COMMAND: ${trimmedCmd}`, 'TYPE "HELP" FOR AVAILABLE COMMANDS'];
+        return [UNKNOWN COMMAND: $ { trimmedCmd }, 'TYPE "HELP" FOR AVAILABLE COMMANDS'];
     };
 
     const handleSubmit = (e) => {
@@ -113,7 +113,8 @@ const CommandLinePortfolio = () => {
         // Add command and its output with typing effect
         setOutput(prev => [
             ...prev,
-            `${currentPath} ${cmd}`,
+            $ { currentPath }
+            $ { cmd },
             ...cmdOutput.map(line => ({ text: line, typed: true }))
         ]);
 
@@ -177,8 +178,8 @@ const CommandLinePortfolio = () => {
         autoFocus /
         >
         <
-        /form> <
-        /div> <
+        /form> < /
+        div > <
         /div>
     );
 };
