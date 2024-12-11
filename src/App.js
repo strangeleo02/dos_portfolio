@@ -93,7 +93,8 @@ const CommandLinePortfolio = () => {
         }
 
         // Default for unknown commands
-        return [UNKNOWN COMMAND: $ { trimmedCmd }, 'TYPE "HELP" FOR AVAILABLE COMMANDS'];
+        return [`UNKNOWN COMMAND: ${trimmedCmd}`, 'TYPE "HELP" FOR AVAILABLE COMMANDS'];
+
     };
 
     const handleSubmit = (e) => {
