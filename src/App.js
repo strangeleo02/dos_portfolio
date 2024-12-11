@@ -17,7 +17,93 @@ const TypingText = ({ text, speed = 20 }) => {
         return () => clearInterval(typingEffect);
     }, [text, speed]);
 
-    return < > { displayText } < />;
+    return <>{displayText}</>;
+};
+
+const BootAnimation = ({ onBootComplete }) => {
+    const [bootLines, setBootLines] = useState([]);
+    const bootSequence = [
+        'BOOTING SYSTEM...',
+        'INITIALIZING KERNEL...',
+        'LOADING SYSTEM RESOURCES...',
+        'CHECKING HARDWARE COMPATIBILITY...',
+        'AUTHENTICATING USER...',
+        'SYSTEM READY.'
+    ];
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            const newLines = [];
+            let currentIndex = 0;
+
+            const addLine = () => {
+                if (currentIndex < bootSequence.length) {
+                    newLines.push(bootSequence[currentIndex]);
+                    setBootLines([...newLines]);
+                    currentIndex++;
+
+                    if (currentIndex < bootSequence.length) {
+                        setTimeout(addLine, 500);
+                    } else {
+                        setTimeout(onBootComplete, 1000);
+                    }
+                }
+            };
+
+            addLine();
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [onBootComplete]);
+
+    return (
+        <div className="bg-black text-green-400 font-mono h-screen overflow-hidden p-4">
+            {bootLines.map((line, index) => (
+                <div key={index} className="animate-fade-in">
+                    <TypingText text={`>> ${line}`} speed={30} />
+                </div>
+            ))}
+        </div>
+    );
+};
+
+const ExitAnimation = () => {
+    const [exitLines, setExitLines] = useState([]);
+    const exitSequence = [
+        'SAVING SYSTEM STATE...',
+        'CLOSING ACTIVE PROCESSES...',
+        'CLEARING TEMPORARY RESOURCES...',
+        'SYSTEM SHUTDOWN COMPLETE.'
+    ];
+
+    useEffect(() => {
+        const newLines = [];
+        let currentIndex = 0;
+
+        const addLine = () => {
+            if (currentIndex < exitSequence.length) {
+                newLines.push(exitSequence[currentIndex]);
+                setExitLines([...newLines]);
+                currentIndex++;
+
+                if (currentIndex < exitSequence.length) {
+                    setTimeout(addLine, 500);
+                }
+            }
+        };
+
+        addLine();
+    }, []);
+
+    return (
+        <div className="bg-black text-red-400 font-mono h-screen overflow-hidden p-4">
+            {exitLines.map((line, index) => (
+                <div key={index} className="animate-fade-in">
+                    <TypingText text={`>> ${line}`} speed={30} />
+                </div>
+            ))}
+        </div>
+    );
 };
 
 const CommandLinePortfolio = () => {
@@ -26,7 +112,10 @@ const CommandLinePortfolio = () => {
     const [inputHistory, setInputHistory] = useState([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [isBooted, setIsBooted] = useState(false);
+    const [isExiting, setIsExiting] = useState(false);
     const inputRef = useRef(null);
+    const terminalRef = useRef(null);
 
     const commands = {
         help: () => [
@@ -58,12 +147,12 @@ const CommandLinePortfolio = () => {
         ],
         projects: () => [
             'CURRENT PROJECTS:',
-            '  1. PERSONALIZED RECIPE RECOMENDATION',
-            '     - TECHNOLOGY: PYTHON,ML',
-            '     - STATUS: IN DEVELOPMENT',
-            '  2. AUDIO STEM SEPRATION AND SPATILIZATION',
+            '  1. PERSONALIZED RECIPE RECOMMENDATION',
             '     - TECHNOLOGY: PYTHON, ML',
-            '     - STATUS: IN DEVELOPEMENT'
+            '     - STATUS: IN DEVELOPMENT',
+            '  2. AUDIO STEM SEPARATION AND SPATIALIZATION',
+            '     - TECHNOLOGY: PYTHON, ML',
+            '     - STATUS: IN DEVELOPMENT'
         ],
         contact: () => [
             '  CONTACT INFORMATION:',
@@ -76,8 +165,8 @@ const CommandLinePortfolio = () => {
             return [];
         },
         exit: () => {
-            window.close();
-            return ['TERMINAL CLOSED.'];
+            setIsExiting(true);
+            return ['PREPARING TO CLOSE TERMINAL...'];
         }
     };
 
@@ -114,15 +203,20 @@ const CommandLinePortfolio = () => {
         // Add command and its output with typing effect
         setOutput(prev => [
             ...prev,
-            `${currentPath}`,
-            `${cmd}`,
+            `${currentPath} ${cmd}`,
             ...cmdOutput.map(line => ({ text: line, typed: true }))
         ]);
         
-
         // Clear input and reset processing
         inputRef.current.value = '';
         setIsProcessing(false);
+
+        // Scroll to bottom
+        setTimeout(() => {
+            if (terminalRef.current) {
+                terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+            }
+        }, 50);
     };
 
     const handleKeyDown = (e) => {
@@ -144,45 +238,49 @@ const CommandLinePortfolio = () => {
         }
     };
 
-    useEffect(() => {
-        // Initial welcome message with typing effect
-        setOutput([
-            { text: '  TERMINAL', typed: true },
-            { text: '  TYPE "HELP" FOR AVAILABLE COMMANDS', typed: true }
-        ]);
-    }, []);
+    // Handle boot and exit states
+    if (isExiting) {
+        return <ExitAnimation />;
+    }
 
-    return ( <
-        div className = "bg-black text-green-400 font-mono min-h-screen p-4" >
-        <
-        div className = "terminal-window h-[600px] overflow-y-auto" > {
-            output.map((line, index) => ( <
-                div key = { index } > {
-                    line.typed ? ( <
-                        TypingText text = { line.text }
-                        />
-                    ) : (
-                        line
-                    )
-                } <
-                /div>
-            ))
-        } <
-        form onSubmit = { handleSubmit }
-        className = "flex" >
-        <
-        span > { currentPath } < /span> <
-        input ref = { inputRef }
-        type = "text"
-        className = "bg-black text-green-400 outline-none flex-grow ml-2"
-        onKeyDown = { handleKeyDown }
-        disabled = { isProcessing }
-        autoFocus /
-        >
-        <
-        /form> < /
-        div > <
-        /div>
+    if (!isBooted) {
+        return <BootAnimation onBootComplete={() => {
+            setIsBooted(true);
+            setOutput([
+                { text: '  TERMINAL', typed: true },
+                { text: '  TYPE "HELP" FOR AVAILABLE COMMANDS', typed: true }
+            ]);
+        }} />;
+    }
+
+    return (
+        <div className="bg-black text-green-400 font-mono h-screen overflow-hidden">
+            <div 
+                ref={terminalRef}
+                className="h-full overflow-auto p-4 pb-12"
+            >
+                {output.map((line, index) => (
+                    <div key={index}>
+                        {line.typed ? (
+                            <TypingText text={line.text} />
+                        ) : (
+                            line
+                        )}
+                    </div>
+                ))}
+                <form onSubmit={handleSubmit} className="flex mt-4">
+                    <span>{currentPath}</span>
+                    <input 
+                        ref={inputRef}
+                        type="text"
+                        className="bg-black text-green-400 outline-none flex-grow ml-2"
+                        onKeyDown={handleKeyDown}
+                        disabled={isProcessing}
+                        autoFocus 
+                    />
+                </form>
+            </div>
+        </div>
     );
 };
 
