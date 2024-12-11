@@ -129,21 +129,21 @@ const CommandLinePortfolio = () => {
             '  EXIT     - Close terminal'
         ],
         about: () => [
-            'PERSONAL PROFILE:',
+            '  PERSONAL PROFILE:',
             '  NAME: AMAL JERRY',
             '  ROLE: SOFTWARE ENGINEER',
             '  PASSION: TURNING COFFEE INTO CODE'
         ],
         skills: () => [
-            'TECHNICAL SKILLS:',
+            '  TECHNICAL SKILLS:',
             '  LANGUAGES:',
-            '    - PYTHON  [████████████] 90%',
-            '    - JAVASCRIPT      [████████] 80%',
-            '    - C/C++        [████] 45%',
+            '    - PYTHON          [████████████] 90%',
+            '    - JAVASCRIPT       [████████] 80%',
+            '    - C/C++            [████] 45%',
             '  FRAMEWORKS:',
-            '    - REACT       [████████████] 95%',
-            '    - NODE.JS     [████████] 85%',
-            '    - THREE.JS    [████] 45%'
+            '    - REACT            [████████████] 95%',
+            '    - NODE.JS          [████████] 85%',
+            '    - THREE.JS         [████] 45%'
         ],
         projects: () => [
             'CURRENT PROJECTS:',
