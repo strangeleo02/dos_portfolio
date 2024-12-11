@@ -41,34 +41,35 @@ const CommandLinePortfolio = () => {
         ],
         about: () => [
             'PERSONAL PROFILE:',
-            '  NAME: DEVELOPER X',
+            '  NAME: AMAL JERRY',
             '  ROLE: SOFTWARE ENGINEER',
             '  PASSION: TURNING COFFEE INTO CODE'
         ],
         skills: () => [
             'TECHNICAL SKILLS:',
             '  LANGUAGES:',
-            '    - JAVASCRIPT  [████████████] 90%',
-            '    - PYTHON      [████████] 80%',
-            '    - RUST        [████] 45%',
+            '    - PYTHON  [████████████] 90%',
+            '    - JAVASCRIPT      [████████] 80%',
+            '    - C/C++        [████] 45%',
             '  FRAMEWORKS:',
             '    - REACT       [████████████] 95%',
-            '    - NODE.JS     [████████] 85%'
+            '    - NODE.JS     [████████] 85%',
+            '    - THREE.JS    [████] 45%'
         ],
         projects: () => [
             'CURRENT PROJECTS:',
-            '  1. COMMAND LINE PORTFOLIO',
-            '     - TECHNOLOGY: REACT',
+            '  1. PERSONALIZED RECIPE RECOMENDATION',
+            '     - TECHNOLOGY: PYTHON,ML',
             '     - STATUS: IN DEVELOPMENT',
-            '  2. AI MEME GENERATOR',
+            '  2. AUDIO STEM SEPRATION AND SPATILIZATION',
             '     - TECHNOLOGY: PYTHON, ML',
-            '     - STATUS: PROTOTYPE'
+            '     - STATUS: IN DEVELOPEMENT'
         ],
         contact: () => [
-            'CONTACT INFORMATION:',
-            '  EMAIL: DEV@EXAMPLE.COM',
-            '  GITHUB: @DEVELOPERX',
-            '  LINKEDIN: /IN/DEVELOPERX'
+            '  CONTACT INFORMATION:',
+            '  EMAIL: AMALJERRY02@GMAIL.COM',
+            '  GITHUB: @STRANGELEO02',
+            '  LINKEDIN: @AMALJERRY02'
         ],
         cls: () => {
             setOutput([]);
@@ -144,8 +145,8 @@ const CommandLinePortfolio = () => {
     useEffect(() => {
         // Initial welcome message with typing effect
         setOutput([
-            { text: 'WELCOME TO DEVELOPER X TERMINAL', typed: true },
-            { text: 'TYPE "HELP" FOR AVAILABLE COMMANDS', typed: true }
+            { text: '  TERMINAL', typed: true },
+            { text: '  TYPE "HELP" FOR AVAILABLE COMMANDS', typed: true }
         ]);
     }, []);
 
