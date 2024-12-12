@@ -74,7 +74,7 @@ const ExitAnimation = () => {
         'CLOSING ACTIVE PROCESSES...',
         'CLEARING TEMPORARY RESOURCES...',
         'SYSTEM SHUTDOWN COMPLETE.'
-    ];
+        ];
 
     useEffect(() => {
         const newLines = [];
@@ -119,7 +119,7 @@ const CommandLinePortfolio = () => {
 
     const commands = {
         help: () => [
-            'AVAILABLE COMMANDS:',
+            '  AVAILABLE COMMANDS:',
             '  HELP     - Show this help menu',
             '  ABOUT    - Display personal information',
             '  SKILLS   - List technical skills',
@@ -182,7 +182,7 @@ const CommandLinePortfolio = () => {
         }
 
         // Default for unknown commands
-        return [`UNKNOWN COMMAND: ${trimmedCmd}`, 'TYPE "HELP" FOR AVAILABLE COMMANDS'];
+        return [`UNKNOWN COMMAND: ${trimmedCmd}`, '   TYPE "HELP" FOR AVAILABLE COMMANDS'];
     };
 
     const handleSubmit = (e) => {
