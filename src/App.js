@@ -151,16 +151,21 @@ const CommandLinePortfolio = () => {
             '     - TECHNOLOGY: PYTHON, ML',
             '     - STATUS: IN DEVELOPMENT',
             '  2. AUDIO STEM SEPARATION AND SPATIALIZATION',
-            '     - TECHNOLOGY: PYTHON, ML',
+            '     - TECHNOLOGY: PYTHON, TENSORFLOW',
             '     - STATUS: IN DEVELOPMENT'
         ],
         contact: () => [
             '  CONTACT INFORMATION:',
             '  EMAIL: AMALJERRY02@GMAIL.COM',
             '  GITHUB: @STRANGELEO02',
-            '  LINKEDIN: @AMALJERRY02'
+            '  LINKEDIN: @AMALJERRY02',
+            '  INSTAGRAM: @BOREDLEO_02'
         ],
         cls: () => {
+            setOutput([]);
+            return [];
+        },
+        clear: () => {
             setOutput([]);
             return [];
         },
